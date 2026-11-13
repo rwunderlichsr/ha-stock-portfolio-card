@@ -1,0 +1,10 @@
+{
+  "domain": "portfolio_quotes",
+  "name": "Portfolio Quotes",
+  "version": "1.0.0",
+  "requirements": [
+    "yfinance==0.2.66"
+  ],
+  "codeowners": [],
+  "iot_class": "cloud_polling"
+}
