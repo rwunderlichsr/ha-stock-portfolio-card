@@ -2,35 +2,32 @@
 
 Custom Lovelace card for a Grid dashboard, showing price, daily change, volume, optional average cost basis, market value, and optional unrealized gain/loss. No portfolio total.
 
-## Install through HACS
+The card reads sensor entities created by the **Portfolio Quotes** integration (included in this repo). The aesthetics of the card are unchanged.
 
-Add this URL as a **Dashboard** custom repository:
+## Install
 
-https://github.com/rwunderlichsr/ha-stock-portfolio-card
+### 1. Portfolio Quotes integration (creates the sensors)
 
-Install **Stock Portfolio Card** and refresh Home Assistant.
+**Recommended (HACS):**
+1. In HACS → Integrations → three-dot menu → Custom repositories
+2. Add `https://github.com/rwunderlichsr/ha-stock-portfolio-card` as type **Integration**
+3. Install **Portfolio Quotes**
+4. Restart Home Assistant
+5. Go to **Settings → Devices & Services → Add Integration**
+6. Search for **Portfolio Quotes**
+7. Enter your symbols as a comma-separated list (example: `SPCX,STM,GSIT,^IXIC`) and optional scan interval (minutes)
+8. The sensors (`sensor.portfolio_spcx`, etc.) will appear and update automatically
 
-**Market data is separate:** The card reads Home Assistant sensor entities; it does not itself fetch stock quotes. The bundled `custom_components/portfolio_quotes` integration must be installed manually (not through the Dashboard HACS installation).
+**Manual:**
+Copy `custom_components/portfolio_quotes` into `/config/custom_components/portfolio_quotes`, restart, then add the integration via the UI as above.
 
-## Quote sensors
+### 2. Stock Portfolio Card (Lovelace)
 
-Copy `custom_components/portfolio_quotes` into `/config/custom_components/portfolio_quotes`. Add to `configuration.yaml`:
+In HACS → Frontend / Dashboard → Custom repositories, add the same URL as type **Dashboard**.
 
-```yaml
-portfolio_quotes:
-  symbols:
-    - SPCX
-    - STM
-    - GSIT
-    - ^IXIC
-  scan_interval_minutes: 5
-```
+Install **Stock Portfolio Card** and refresh.
 
-Restart Home Assistant. Check Developer Tools → States for the resulting entities. Yahoo Finance may reject or throttle requests. **SPCX is not verified as a valid public SpaceX ticker.** Confirm the ticker independently before relying on it.
-
-## Grid card configuration
-
-Add this entry beneath your existing Grid card's `cards:` list:
+## Card configuration
 
 ```yaml
 - type: custom:stock-portfolio-card
@@ -54,13 +51,13 @@ Add this entry beneath your existing Grid card's `cards:` list:
       entity: sensor.portfolio_ixic
 ```
 
+Entity IDs follow the pattern `sensor.portfolio_<symbol>` (caret removed for indexes).
+
 ## Visibility settings
 
-In **Edit dashboard → Edit card → Show code editor**, set:
+- `show_cost_basis: true/false`
+- `show_gain_loss: true/false`
 
-- `show_cost_basis: true` to show average cost basis; `false` to hide it.
-- `show_gain_loss: true` to show a separate dollar gain/loss column; `false` to hide it.
+Provide `shares` and `basis` per holding when you want market value and gain/loss. Indexes without holdings show dashes.
 
-Both are independent. Market value stays visible and is green when price is at/above basis, red when below. Provide actual `shares` and `basis` per holding to calculate market value and gains/losses. Indexes without holdings show dashes.
-
-This repository has not yet been tested on a live Home Assistant instance.
+Yahoo Finance may throttle or reject some requests. Confirm tickers (especially SPCX) independently.

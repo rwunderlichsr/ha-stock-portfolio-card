@@ -1,10 +1,11 @@
 {
   "domain": "portfolio_quotes",
   "name": "Portfolio Quotes",
-  "version": "1.0.0",
-  "requirements": [
-    "yfinance==0.2.66"
-  ],
-  "codeowners": [],
-  "iot_class": "cloud_polling"
+  "config_flow": true,
+  "documentation": "https://github.com/rwunderlichsr/ha-stock-portfolio-card",
+  "issue_tracker": "https://github.com/rwunderlichsr/ha-stock-portfolio-card/issues",
+  "requirements": ["yfinance==0.2.66"],
+  "codeowners": ["@rwunderlichsr"],
+  "iot_class": "cloud_polling",
+  "version": "1.1.0"
 }
