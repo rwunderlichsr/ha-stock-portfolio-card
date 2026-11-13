@@ -1,10 +1,11 @@
 from homeassistant.components.sensor import SensorEntity, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from .const import DOMAIN
+from .const import DOMAIN, CONF_SYMBOLS
 
 async def async_setup_entry(hass, entry, async_add_entities):
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    symbols = entry.data.get("symbols", [])
+    data = entry.options or entry.data
+    symbols = data.get(CONF_SYMBOLS, [])
     async_add_entities([QuoteSensor(coordinator, symbol) for symbol in symbols])
 
 class QuoteSensor(CoordinatorEntity, SensorEntity):
