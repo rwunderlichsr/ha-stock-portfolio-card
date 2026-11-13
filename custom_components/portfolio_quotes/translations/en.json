@@ -1,0 +1,32 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Portfolio Quotes",
+        "description": "Enter the stock symbols to track (comma-separated).",
+        "data": {
+          "symbols": "Symbols",
+          "scan_interval_minutes": "Update interval (minutes)"
+        },
+        "data_description": {
+          "symbols": "Example: SPCX,STM,GSIT,^IXIC",
+          "scan_interval_minutes": "How often to refresh prices (1-60 minutes)"
+        }
+      }
+    },
+    "error": {
+      "no_symbols": "Please enter at least one symbol"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Portfolio Quotes options",
+        "data": {
+          "symbols": "Symbols",
+          "scan_interval_minutes": "Update interval (minutes)"
+        }
+      }
+    }
+  }
+}
