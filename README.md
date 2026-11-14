@@ -61,7 +61,6 @@ Point the existing card at the new sensors (same pattern as before):
 ```yaml
 - type: custom:stock-portfolio-card
   title: My Stocks
-  show_gain_loss: false
   stocks:
     - name: SpaceX
       ticker: SPCX
@@ -77,8 +76,13 @@ Point the existing card at the new sensors (same pattern as before):
       entity: sensor.portfolio_ixic
 ```
 
-Existing card YAML still works. Keep each holding’s `shares` and `basis` for
-Market Value, gain/loss, and value coloring. The card omits the Avg basis
-column even if older YAML contains `show_cost_basis`.
+**Gain/Loss ($)** shows each holding’s total unrealized dollar gain or loss:
+`(current price − average cost per share) × shares`. Set `shares` and `basis`
+(average cost per share) for each holding. Gains are green, losses are red,
+and break-even displays as `$0.00`. A missing quote or missing holding data
+displays as a dash. The column is always shown, so older `show_gain_loss`
+settings can be removed. The Avg basis column stays hidden. The table uses
+larger text when the dashboard gives it enough width. In a grid, widen the
+card or give it a row of its own to take advantage of the larger text.
 
 Yahoo Finance may throttle requests. Confirm tickers (especially SPCX) independently.
